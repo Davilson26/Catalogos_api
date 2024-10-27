@@ -1,0 +1,63 @@
+VER Categorias
+----------------
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="Categorias">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tns:VerCategorias/>
+   </soapenv:Body>
+</soapenv:Envelope>
+----------------
+
+VER DETALLE
+----------------
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="Categorias">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tns:VerCategoria>
+         <id>123</id>
+      </tns:VerCategoria>
+   </soapenv:Body>
+</soapenv:Envelope>
+----------------
+
+CREAR Categoria
+----------------
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="Categorias">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tns:CrearCategoria>
+         <data>
+            <nombre>Juan</nombre>
+         </data>
+      </tns:CrearCategoria>
+   </soapenv:Body>
+</soapenv:Envelope>
+----------------
+
+ACTUALIZAR Categoria
+----------------
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="Categorias">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tns:ActualizarCategoria>
+         <data>
+            <nombre>Juan</nombre>
+         </data>
+         <id>1</id>
+      </tns:ActualizarCategoria>
+   </soapenv:Body>
+</soapenv:Envelope>
+----------------
+
+ELIMINAR Categoria
+----------------
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="Categorias">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tns:EliminarCategoria>
+         <id>123</id>
+      </tns:EliminarCategoria>
+   </soapenv:Body>
+</soapenv:Envelope>
+----------------
+
