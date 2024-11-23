@@ -26,7 +26,7 @@ $server->wsdl->addComplexType(
 // Registrar método SOAP para ver todos los Categorias
 $server->register(
     'VerCategorias',
-    array(),
+    array('id' => 'tns:int'),
     array('return' => 'xsd:Array'),
     $namespace,
     false,

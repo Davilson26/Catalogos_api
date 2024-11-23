@@ -19,7 +19,7 @@ class Categorias
         }
     }
 
-    // Obtener usuario por ID
+    // Obtener categoria por ID
     public function getById($id)
     {
         $sql = "SELECT * FROM categorias WHERE id = :id";
@@ -28,7 +28,7 @@ class Categorias
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Crear usuario
+    // Crear categoria
     public function create($data)
     {
         try {
@@ -43,7 +43,7 @@ class Categorias
         }
     }
 
-    // Actualizar usuario
+    // Actualizar categoria
     public function update($data, $id)
     {
         $sql = "UPDATE categorias SET nombre = :nombre WHERE id = :id";
@@ -55,7 +55,7 @@ class Categorias
         return "Registro actualizado correctamente";
     }
 
-    // Eliminar usuario
+    // Eliminar categoria
     public function delete($id)
     {
         $sql = "DELETE FROM categorias WHERE id = :id";
