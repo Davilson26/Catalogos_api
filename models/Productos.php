@@ -82,10 +82,10 @@ class Productos
                 OR stock = :search
                 OR descripcion LIKE :likeSearch 
                 OR categoria_id = :search";
-        
+
         // Preparar la sentencia
         $stmt = $this->pdocatalogo->prepare($sql);
-        
+
         // Ejecutar la sentencia, utilizando el string para la búsqueda exacta y parcial
         $stmt->execute([
             'search' => $search,
@@ -93,14 +93,42 @@ class Productos
         ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-     // Obtener productos por ID
-     public function getByCategoriaId($id)
-     {
-         $sql = "SELECT * FROM productos WHERE categoria_id = :categoria_id";
-         $stmt = $this->pdocatalogo->prepare($sql);
-         $stmt->execute(['categoria_id' => $id]);
 
-         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-     }
+    // Obtener productos por ID
+    public function getByCategoriaId($id)
+    {
+        $sql = "SELECT * FROM productos WHERE categoria_id = :categoria_id";
+        $stmt = $this->pdocatalogo->prepare($sql);
+        $stmt->execute(['categoria_id' => $id]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateStock($product_id, $quantity)
+    {
+        // Buscar el producto por ID
+        $sql = "SELECT * FROM productos WHERE id = :product_id";
+        $stmt = $this->pdocatalogo->prepare($sql);
+        $stmt->execute(['product_id' => $product_id]);
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$product) {
+            return ['error' => 'Producto no encontrado'];
+        }
+
+        // Verificar stock suficiente
+        if ($product['stock'] < $quantity) {
+            return ['error' => 'Stock insuficiente'];
+        }
+
+        // Calcular nuevo stock
+        $newStock = $product['stock'] - $quantity;
+
+        // Actualizar el stock en la base de datos
+        $updateSql = "UPDATE productos SET stock = :newStock WHERE id = :product_id";
+        $updateStmt = $this->pdocatalogo->prepare($updateSql);
+        $updateStmt->execute(['newStock' => $newStock, 'product_id' => $product_id]);
+
+        return 'Stock ajustado con éxito';
+    }
 }

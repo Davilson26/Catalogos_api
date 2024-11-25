@@ -111,24 +111,38 @@ $server->register(
     'Filtrar por categoria'
 );
 
+// Registrar método SOAP para ajustar el stock de un producto
+$server->register(
+    'AjustarStock',
+    array('product_id' => 'tns:int', 'quantity' => 'tns:int'),
+    array('return' => 'xsd:string'),
+    $namespace,
+    false,
+    'rpc',
+    'encoded',
+    'Ajustar el stock de un producto'
+);
 
 
 // Función que llama al controlador para ver todos los Productos
-function VerProductos() {
+function VerProductos()
+{
     $pdo = getConnection();
     $controller = new ProductoController($pdo);
     return $controller->getAll();
 }
 
 // Función que llama al controlador para obtener el detalle de uh Producto
-function VerProducto($id) {
+function VerProducto($id)
+{
     $pdo = getConnection();
     $controller = new ProductoController($pdo);
     return $controller->getDetail($id);
 }
 
 // Función que llama al controlador para crear Producto
-function CrearProducto($data) {
+function CrearProducto($data)
+{
     $pdo = getConnection();
 
     $controller = new ProductoController($pdo);
@@ -136,30 +150,41 @@ function CrearProducto($data) {
 }
 
 // Función que llama al controlador para actualizar Producto
-function ActualizarProducto($data, $id) {
+function ActualizarProducto($data, $id)
+{
     $pdo = getConnection();
     $controller = new ProductoController($pdo);
     return $controller->update($data, $id);
 }
 
 // Función que llama al controlador para eliminar Producto
-function EliminarProducto($id) {
+function EliminarProducto($id)
+{
     $pdo = getConnection();
     $controller = new ProductoController($pdo);
     return $controller->delete($id);
 }
 
 // Función que llama al controlador para filtrar los productos
-function FiltrarProducto($search) {
+function FiltrarProducto($search)
+{
     $pdo = getConnection();
     $controller = new ProductoController($pdo);
     return $controller->getSearch($search);
 }
 
-function FiltrarCategoria($categoria_id) {
+function FiltrarCategoria($categoria_id)
+{
     $pdo = getConnection();
     $controller = new ProductoController($pdo);
     return $controller->getByCategoria($categoria_id);
+}
+
+function AjustarStock($product_id, $quantity)
+{
+    $pdo = getConnection();
+    $controller = new ProductoController($pdo);
+    return $controller->adjustStock($product_id, $quantity);
 }
 
 //-----------------------
@@ -168,4 +193,3 @@ function FiltrarCategoria($categoria_id) {
 $POST_DATA = file_get_contents("php://input");
 $server->service($POST_DATA);
 exit();
-?>

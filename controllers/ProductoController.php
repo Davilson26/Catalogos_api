@@ -48,4 +48,9 @@ class ProductoController
     {
         return $this->productoModel->getByCategoriaId($id);
     }
+
+    public function adjustStock($product_id, $quantity)
+    {
+        return $this->productoModel->updateStock($product_id, $quantity);
+    }
 }
